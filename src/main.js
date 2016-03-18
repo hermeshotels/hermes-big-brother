@@ -69,7 +69,10 @@ function checkHermes(db, servers){
       failConsecutive = failConsecutive + 1;
       if(failConsecutive > 5){
         //Make voice call to Romano
-        nexmo.sendTTSMessage('+393485592637', 'Rilevato errore connessione HermesHotels');
+        nexmo.sendTTSMessage('+393485592637', 'Rilevato errore connessione HermesHotels', {
+          lg: 'it-IT',
+          repeat: 2
+        });
       }
       //Find the document and increment it by 1
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: new Date()}});
