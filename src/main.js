@@ -69,9 +69,9 @@ function checkHermes(db, servers){
         nexmo.sendTTSMessage('+393888108490', 'Rilevato errore connessione HermesHotels');
       }
       //Find the document and increment it by 1
-      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false}});
+      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: new Date()}});
     }else{
-      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true}});
+      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true, lastCheck: new Date()}});
       failConsecutive = 0;
     }
   });
