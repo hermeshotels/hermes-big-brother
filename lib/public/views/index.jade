@@ -12,7 +12,7 @@ html(lang="en")
     div(class="container-fluid page-head")
       div(class="row")
         div(class="col-md-12 text-center")
-          img(src="https://www.iconfinder.com/icons/785631/1210128/128/raster?token=1458231871-rAsxHRcAFBMi1B2FEZ247F5hO9pSl4UD-%2B4wqgEJEFB2O0gHeIsAUrT8e1Ko%3D")
+          img(src="../images/service.png")
           h1 HERMESHOTELS <br>
             small Service Status
 
@@ -34,9 +34,9 @@ html(lang="en")
               tr
                 td
                   if server.status
-                    img(src="https://www.iconfinder.com/icons/389016/790032/24/raster?token=1458233282-7QaXm3u7EegBYpT6hQXTpf2YXxVBcEd6-Z%2B9HPZTDzr93u3/x4y%2BMRgNKAZ8%3D")
+                    img(src="../images/okay.png")
                   else
-                    img(src="https://www.iconfinder.com/icons/389009/790025/24/raster?token=1458290439-JdTcErtyxBCPzJkSRZBObiEkRd8MaA6G-dTxFtpvnF1oXf8eQlns%2BX9SBc30%3D")
+                    img(src="../images/error.png")
                 td=server.name
                 td=server.lastCheck
 
