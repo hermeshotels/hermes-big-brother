@@ -58,7 +58,7 @@ function checkHermes(db, servers){
     uri: 'https://secure.hermeshotels.com/bol/dispo.do?caId=138&hoId=1311'
   }, function(error, response, body){
     var status = body.indexOf('HOTEL CHIMERA');
-    var currentTime = moment().tz('Europe/Roma').format('LLLL');
+    var currentTime = moment().tz('Europe/Rome').format('LLLL');
     if(status === -1){
       //Server down send notification
       //Wanny
