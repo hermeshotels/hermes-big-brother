@@ -6,6 +6,7 @@ import {MongoClient} from 'mongodb'
 import request from 'request';
 import cheerio from 'cheerio';
 import nexmo from 'easynexmo';
+import moment from 'moment-timezone';
 
 let app = express();
 app.use(serveFavicon(__dirname + '/public/favicon.ico'));
@@ -57,6 +58,7 @@ function checkHermes(db, servers){
     uri: 'https://secure.hermeshotels.com/bol/dispo.do?caId=138&hoId=1311'
   }, function(error, response, body){
     var status = body.indexOf('HOTEL CHIMERA');
+    var currentTime = moment().tz('Europe/Roma').format('L');
     if(status === -1){
       //Server down send notification
       //Wanny
@@ -75,9 +77,9 @@ function checkHermes(db, servers){
         });
       }
       //Find the document and increment it by 1
-      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: new Date()}});
+      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: currentTime}});
     }else{
-      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true, lastCheck: new Date()}});
+      servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true, lastCheck: currentTime}});
       failConsecutive = 0;
     }
   });
