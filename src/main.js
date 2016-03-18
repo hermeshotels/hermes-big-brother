@@ -59,14 +59,17 @@ function checkHermes(db, servers){
     var status = body.indexOf('HOTEL CHIMERA');
     if(status === -1){
       //Server down send notification
+      //Wanny
       nexmo.sendTextMessage('HermesBigBr', '+393888108490', 'HH - Errore di connessione');
+      //Romano
       nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
+      //Giuseppina
       nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
       console.log('Server down ' + new Date());
       failConsecutive = failConsecutive + 1;
       if(failConsecutive > 5){
         //Make voice call to Romano
-        nexmo.sendTTSMessage('+393888108490', 'Rilevato errore connessione HermesHotels');
+        nexmo.sendTTSMessage('+393485592637', 'Rilevato errore connessione HermesHotels');
       }
       //Find the document and increment it by 1
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: new Date()}});
@@ -76,7 +79,6 @@ function checkHermes(db, servers){
     }
   });
 }
-
 /*
 Routes
 */
