@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+  head
+    title= 'HermesHotels - Service Status'
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", rel="stylesheet")
+    link(href="css/main.css", rel="stylesheet")
+  body
+
+    div(class="container-fluid page-head")
+      div(class="row")
+        div(class="col-md-12 text-center")
+          img(src="https://www.iconfinder.com/icons/785631/1210128/128/raster?token=1458231871-rAsxHRcAFBMi1B2FEZ247F5hO9pSl4UD-%2B4wqgEJEFB2O0gHeIsAUrT8e1Ko%3D")
+          h1 HERMESHOTELS <br>
+            small Service Status
+
+    div(class="container page-body")
+      div(class="row")
+        div(class="col-md-12")
+          p(class="text-center").
+            Tramite questa pagina puoi monitorare lo stato dei servizi HermesHotels.
+
+      div(class="row server-status")
+        div(class="col-md-8 col-md-offset-2")
+          table(class="table table-hover")
+            thead
+              tr
+                th Stato
+                th Server
+                th Last Check
+            tbody
+              tr
+                td
+                  if server.status
+                    img(src="https://www.iconfinder.com/icons/389016/790032/24/raster?token=1458233282-7QaXm3u7EegBYpT6hQXTpf2YXxVBcEd6-Z%2B9HPZTDzr93u3/x4y%2BMRgNKAZ8%3D")
+                  else
+                    img(src="https://www.iconfinder.com/icons/389009/790025/24/raster?token=1458290439-JdTcErtyxBCPzJkSRZBObiEkRd8MaA6G-dTxFtpvnF1oXf8eQlns%2BX9SBc30%3D")
+                td=server.name
+                td=server.lastCheck
+
+
+    script(src="https://code.jquery.com/jquery-2.2.1.min.js")
+    script(src="js/main.js")
