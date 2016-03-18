@@ -43,7 +43,7 @@ MongoClient.connect(dbUri, function(err, db){
   Check the connection every 2 minutes
   */
   checkHermes(db, servers);
-  setTimeout(function(){
+  setInterval(function(){
     checkHermes(db, servers);
   }, 120000);
 });
