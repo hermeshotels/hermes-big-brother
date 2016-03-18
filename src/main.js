@@ -72,6 +72,7 @@ function checkHermes(db, servers){
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false}});
     }else{
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true}});
+      failConsecutive = 0;
     }
   });
 }
