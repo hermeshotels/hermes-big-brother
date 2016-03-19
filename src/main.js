@@ -72,6 +72,7 @@ function checkHermes(db, servers){
         nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
         //Giuseppina
         nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
+        smsSent = true;
       }
 
       failConsecutive = failConsecutive + 1;
@@ -81,6 +82,7 @@ function checkHermes(db, servers){
           lg: 'it-IT',
           repeat: 2
         });
+        callDone = true;
       }
       //Find the document and increment it by 1
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: currentTime}});
