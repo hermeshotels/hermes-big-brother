@@ -14,6 +14,7 @@ app.use(express.static('lib/public/assets'));
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'jade');
 nexmo.initialize('79f0b103', '2947cd56', true);
+
 /*
 Database
 */
@@ -52,6 +53,8 @@ MongoClient.connect(dbUri, function(err, db){
 /*
 Server check every 2 minutes
 */
+var smsSent = false;
+var callDone = false;
 function checkHermes(db, servers){
   console.log('Starting server check');
   request({
@@ -60,16 +63,19 @@ function checkHermes(db, servers){
     var status = body.indexOf('HOTEL CHIMERA');
     var currentTime = moment().tz('Europe/Rome').format('LLLL');
     if(status === -1){
-      //Server down send notification
-      //Wanny
-      nexmo.sendTextMessage('HermesBigBr', '+393888108490', 'HH - Errore di connessione');
-      //Romano
-      nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
-      //Giuseppina
-      nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
-      console.log('Server down ' + new Date());
+
+      if(!smsSent){
+        //Server down send notification
+        //Wanny
+        nexmo.sendTextMessage('HermesBigBr', '+393888108490', 'HH - Errore di connessione');
+        //Romano
+        nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
+        //Giuseppina
+        nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
+      }
+
       failConsecutive = failConsecutive + 1;
-      if(failConsecutive > 5){
+      if(failConsecutive > 5 && smsSent && !callDone){
         //Make voice call to Romano
         nexmo.sendTTSMessage('+393485592637', 'Rilevato errore connessione HermesHotels', {
           lg: 'it-IT',
@@ -80,6 +86,8 @@ function checkHermes(db, servers){
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {fail: +1}, $set: {status: false, lastCheck: currentTime}});
     }else{
       servers.findOneAndUpdate({name: 'HermesHotels Central Data'}, {$inc: {success: +1}, $set: {status: true, lastCheck: currentTime}});
+      smsSent = false;
+      callDone = false;
       failConsecutive = 0;
     }
   });
