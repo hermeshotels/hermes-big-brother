@@ -69,9 +69,9 @@ function checkHermes(db, servers){
         //Wanny
         nexmo.sendTextMessage('HermesBigBr', '+393888108490', 'HH - Errore di connessione');
         //Romano
-        nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
+        //nexmo.sendTextMessage('HermesBigBr', '+393485592637', 'HH - Errore di connessione');
         //Giuseppina
-        nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
+        //nexmo.sendTextMessage('HermesBigBr', '+393402485276', 'HH - Errore di connessione');
         smsSent = true;
       }
 
